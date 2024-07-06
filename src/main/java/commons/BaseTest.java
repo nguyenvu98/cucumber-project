@@ -1,0 +1,74 @@
+package commons;
+
+import java.time.Duration;
+//import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Point;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+//import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+//import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.testng.Assert;
+import org.testng.Reporter;
+
+public class BaseTest {
+	private WebDriver driverBaseTest;
+
+	protected WebDriver getBrowserDriver(String browserName) {
+		if(browserName.equals("firefox")) {
+			driverBaseTest = new FirefoxDriver();
+		}else if (browserName.equals("chrome")) {
+			driverBaseTest = new ChromeDriver();
+		}else {
+			driverBaseTest = new EdgeDriver();
+		}
+		driverBaseTest.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+		driverBaseTest.manage().window().maximize();
+		driverBaseTest.get(GlobalConstants.USER_PAGE_URL);
+		return driverBaseTest;
+	}
+	
+	protected WebDriver getBrowserDriverAtAdmin(String browserName) {
+		if(browserName.equals("firefox")) {
+			driverBaseTest = new FirefoxDriver();
+		}else if (browserName.equals("chrome")) {
+			driverBaseTest = new ChromeDriver();
+		}else {
+			driverBaseTest = new EdgeDriver();
+		}
+		driverBaseTest.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+		driverBaseTest.manage().window().maximize();
+		driverBaseTest.get(GlobalConstants.USER_PAGE_URL);
+		return driverBaseTest;
+	}
+	
+	public static int randomNumber() {
+		Random random = new Random();
+		return random.nextInt(9999);
+	}
+
+	public WebDriver getDriverInstance() {
+        return driverBaseTest;
+	}
+
+	public void sleepInSecond(long time) {
+		try {
+			Thread.sleep(time * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
