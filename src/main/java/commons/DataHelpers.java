@@ -8,7 +8,7 @@ public class DataHelpers {
 	private Locale locale = new Locale("en");
 	private Faker faker = new Faker(locale);
 	
-	public DataHelpers getData() {
+	public static DataHelpers getData() {
 		return new DataHelpers();
 	}
 	
